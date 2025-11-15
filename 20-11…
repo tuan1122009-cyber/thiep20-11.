@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Thiệp 20/11 - Tặng cô Phạm Thị Miên Thảo</title>
+
+  <style>
+    :root{
+      --bg1: #fff0f4;
+      --bg2: #ffe6f0;
+      --accent: #c2104d;
+      --muted: rgba(0,0,0,0.55);
+      --glass: rgba(255,255,255,0.6);
+      --cardshadow: 0 12px 30px rgba(0,0,0,0.18);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(135deg,var(--bg1),var(--bg2));
+      color: #3b0028;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+    }
+
+    /* container */
+    .card {
+      width:100%;
+      max-width:980px;
+      border-radius:20px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,250,250,0.85));
+      box-shadow: var(--cardshadow);
+      padding:28px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    /* header */
+    .header {
+      display:flex;
+      align-items:center;
+      gap:18px;
+    }
+    .logo {
+      width:86px;
+      height:86px;
+      border-radius:12px;
+      overflow:hidden;
+      flex:0 0 86px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.12);
+      transform-style: preserve-3d;
+      transition: transform 800ms ease;
+    }
+    .logo img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transform: translateZ(0);
+    }
+
+    .headtext{
+      text-align:left;
+    }
+    .day {
+      font-size:18px;
+      color:var(--muted);
+      margin:0 0 6px 0;
+    }
+    h1.title{
+      margin:0;
+      font-size:30px;
+      letter-spacing:1px;
+      color:var(--accent);
+      text-shadow:0 2px 8px rgba(197,0,80,0.12);
+      transform: translateY(0);
+      opacity:0;
+      animation: textIn 1s ease forwards;
+    }
+    p.subtitle{
+      margin:6px 0 0 0;
+      color:#4b0030;
+      opacity:0.9;
+    }
+
+    /* gallery and video area */
+    .content{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:20px;
+    }
+
+    /* left column: message and buttons */
+    .left {
+      padding:18px;
+      border-radius:12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,245,248,0.9));
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    }
+    .wish {
+      font-size:18px;
+      line-height:1.6;
+      color:#3b0030;
+      margin:0 0 18px 0;
+      opacity:0;
+      animation: fadeUp 1s 0.6s ease forwards;
+    }
+
+    .sign {
+      margin-top:12px;
+      font-weight:600;
+      color:#7a0035;
+      font-style:italic;
+      text-align:right;
+    }
+
+    .controls{
+      margin-top:16px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .btn {
+      background:linear-gradient(180deg,#ff4677,#d62e62);
+      color:white;
+      border:0;
+      padding:10px 14px;
+      border-radius:12px;
+      cursor:pointer;
+      box-shadow:0 6px 16px rgba(214,46,98,0.18);
+      font-weight:600;
+    }
+    .btn.secondary{
+      background:transparent;
+      color:var(--accent);
+      border:1px solid rgba(160,0,64,0.12);
+      box-shadow:none;
+    }
+
+    /* right column video + image */
+    .right {
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      align-items:center;
+    }
+
+    .photo-frame{
+      width:100%;
+      height:300px;
+      border-radius:14px;
+      overflow:hidden;
+      position:relative;
+      background:linear-gradient(135deg,#fff,#ffeef6);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+      transform-style:preserve-3d;
+      perspective:1000px;
+    }
+
+    .photo {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transform-origin:center center;
+      transition: transform 1s cubic-bezier(.2,.9,.2,1);
+      will-change: transform;
+    }
+
+    .photo-frame:hover .photo {
+      transform: rotateY(12deg) scale(1.03);
+    }
+
+    /* floating petals */
+    .petal {
+      position:fixed;
+      top:-40px;
+      width:28px;
+      height:28px;
+      pointer-events:none;
+      background-image: url('https://i.imgur.com/3Z8eQqq.png');
+      background-size:contain;
+      opacity:0.9;
+      transform-origin:center;
+    }
+
+    /* hearts fly */
+    .heart {
+      position:fixed;
+      bottom:90px;
+      right:26px;
+      font-size:28px;
+      pointer-events:none;
+      transform: translateY(0);
+      will-change: transform, opacity;
+    }
+
+    /* video */
+    .video {
+      width:100%;
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow:0 10px 26px rgba(0,0,0,0.14);
+    }
+    .video video{
+      width:100%;
+      height:200px;
+      object-fit:cover;
+      display:block;
+    }
+
+    /* small decorations */
+    .ribbon {
+      position:absolute;
+      right:-80px;
+      top:-40px;
+      width:260px;
+      height:260px;
+      background:radial-gradient(circle at 30% 30%, rgba(255,200,230,0.35), transparent 30%);
+      transform: rotate(25deg);
+      pointer-events:none;
+      filter: blur(12px);
+    }
+
+    /* floating text glow */
+    h1.title.glow {
+      text-shadow:0 2px 14px rgba(255,200,230,0.45);
+      transition: text-shadow 600ms;
+    }
+
+    /* small responsiveness */
+    @media (max-width:900px){
+      .content{grid-template-columns:1fr; padding-bottom:8px}
+      .right{order: -1}
+      .photo-frame{height:270px}
+    }
+
+    /* animations */
+    @keyframes textIn {
+      0%{ opacity:0; transform: translateY(10px) scale(.98)}
+      100%{opacity:1; transform:none}
+    }
+    @keyframes fadeUp {
+      0%{opacity:0; transform:translateY(12px)}
+      100%{opacity:1; transform:translateY(0)}
+    }
+    @keyframes petalFall {
+      0% { transform: translateY(-40vh) rotate(0deg); opacity:1 }
+      100%{ transform: translateY(110vh) rotate(360deg); opacity:0.05 }
+    }
+    @keyframes heartFly {
+      0%{ transform: translateY(0) scale(1); opacity:1 }
+      100%{ transform: translateY(-220px) scale(1.6); opacity:0 }
+    }
+
+    /* small footer */
+    .footer {
+      margin-top:14px;
+      color:var(--muted);
+      font-size:13px;
+      text-align:center;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="card" id="card">
+    <div class="ribbon"></div>
+
+    <div class="header">
+      <div class="logo" id="logo3d">
+        <!-- Ảnh cô: đổi tên file thành co.jpg trong repo -->
+        <img src="co.jpg" alt="Cô" id="mainPhoto" />
+      </div>
+
+      <div class="headtext">
+        <p class="day">20/11 — Ngày Nhà Giáo Việt Nam</p>
+        <h1 class="title glow">Kính tặng cô: Phạm Thị Miên Thảo</h1>
+        <p class="subtitle">Tặng cô những lời cảm ơn sâu sắc từ học trò: <b>Phạm Anh Tuấn</b></p>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="left">
+        <p class="wish" id="wishText">
+          “Nhân ngày Nhà giáo Việt Nam 20/11, em – <b>Phạm Anh Tuấn</b> – xin gửi đến cô Phạm Thị Miên Thảo
+          những lời chúc chân thành nhất. Cảm ơn cô vì những bài học, vì sự tận tâm và yêu thương mà cô đã dành cho chúng em.
+          Chúc cô luôn mạnh khỏe, hạnh phúc và tràn ngập niềm vui. Em luôn biết ơn cô và kính tặng cô ngày đặc biệt này.” ❤️
+        </p>
+
+        <div class="controls">
+          <button class="btn" id="playMusicBtn">▶️ Phát nhạc nền</button>
+          <button class="btn secondary" id="stopMusicBtn">⏸ Dừng nhạc</button>
+          <button class="btn secondary" id="heartBtn">💖 Gửi tim</button>
+          <a class="btn secondary" id="downloadBtn" href="co.jpg" download>📥 Tải ảnh cô</a>
+        </div>
+
+        <div class="sign">— Kính tặng cô, <b>Phạm Anh Tuấn</b> —</div>
+        <div class="footer">Nhấn "Gửi tim" để trái tim bay — Nhấn "Phát nhạc" nếu trình duyệt chặn tự phát.</div>
+      </div>
+
+      <div class="right">
+        <div class="photo-frame" id="photoFrame">
+          <img src="co.jpg" alt="Cô" class="photo" id="photo3" />
+        </div>
+
+        <div class="video" id="videoWrap">
+          <!-- nếu có video.mp4 trong repo, nó sẽ hiện -->
+          <video id="giftVideo" muted loop playsinline>
+            <source src="video.mp4" type="video/mp4">
+            <!-- fallback text -->
+          </video>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- floating elements are appended by JS (petals and hearts) -->
+  <audio id="bgMusic" loop preload="none">
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // ---------- helpers ----------
+    function rand(min, max){ return Math.random() * (max - min) + min }
+
+    // ---------- petals ----------
+    function createPetal(){
+      const p = document.createElement('div');
+      p.className = 'petal';
+      const size = rand(18,36);
+      p.style.width = size + 'px';
+      p.style.height = size + 'px';
+      p.style.left = rand(0, window.innerWidth) + 'px';
+      p.style.opacity = rand(0.6, 1);
+      p.style.transform = 'rotate(' + rand(0,360) + 'deg)';
+      p.style.animation = 'petalFall ' + rand(5,12) + 's linear forwards';
+      p.style.zIndex = 8;
+      document.body.appendChild(p);
+      setTimeout(()=> p.remove(), 14000);
+    }
+    // create many petals slowly
+    for(let i=0;i<18;i++){
+      setTimeout(createPetal, i*400);
+    }
+    setInterval(createPetal, 1600);
+
+    // ---------- hearts ----------
+    function makeHeart(){
+      const h = document.createElement('div');
+      h.className = 'heart';
+      h.innerHTML = '💖';
+      h.style.right = (rand(26,120)) + 'px';
+      h.style.bottom = (90 + rand(0,40)) + 'px';
+      h.style.opacity = 1;
+      h.style.transition = 'transform 1500ms ease, opacity 1500ms ease';
+      document.body.appendChild(h);
+      // animate
+      h.animate([
+        { transform: 'translateY(0) scale(1)', opacity:1 },
+        { transform: 'translateY(-220px) scale(1.6)', opacity:0 }
+      ], { duration: 1600, easing:'cubic-bezier(.2,.9,.2,1)'});
+      setTimeout(()=> h.remove(), 1700);
+    }
+
+    // ---------- play music controls ----------
+    const btnPlay = document.getElementById('playMusicBtn');
+    const btnStop = document.getElementById('stopMusicBtn');
+    const bg = document.getElementById('bgMusic');
+    const heartBtn = document.getElementById('heartBtn');
+    const video = document.getElementById('giftVideo');
+
+    btnPlay.addEventListener('click', async ()=>{
+      try{
+        await bg.play();
+      }catch(e){
+        // Safari/Chrome may block autoplay — user initiated play will work
+      }
+      btnPlay.innerText = '🔊 Đang phát nhạc';
+    });
+    btnStop.addEventListener('click', ()=>{
+      bg.pause();
+      btnPlay.innerText = '▶️ Phát nhạc nền';
+    });
+
+    heartBtn.addEventListener('click', ()=>{
+      makeHeart();
+      // bonus: small sparkle on photo
+      const f = document.getElementById('photoFrame');
+      f.animate([{transform:'scale(1)'},{transform:'scale(1.03)'},{transform:'scale(1)'}],{duration:600});
+    });
+
+    // ---------- show/hide video if no source ----------
+    (function checkVideo(){
+      const src = video.querySelector('source');
+      if(!src || !src.getAttribute('src')){
+        // hide video area
+        const vwrap = document.getElementById('videoWrap');
+        vwrap.style.display = 'none';
+      } else {
+        // try to autoplay muted
+        video.muted = true;
+        video.play().catch(()=>{});
+      }
+    })();
+
+    // ---------- 3D tilt effect for photo (mobile friendly) ----------
+    const photoFrame = document.getElementById('photoFrame');
+    photoFrame.addEventListener('mousemove', (e)=>{
+      const r = photoFrame.getBoundingClientRect();
+      const mx = (e.clientX - r.left) / r.width;
+      const my = (e.clientY - r.top) / r.height;
+      const rx = (my - 0.5) * 8; // rotateX
+      const ry = (mx - 0.5) * -14; // rotateY
+      photoFrame.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(0)`;
+    });
+    photoFrame.addEventListener('mouseleave', ()=>{
+      photoFrame.style.transform = 'none';
+    });
+
+    // ---------- subtle header glow on load ----------
+    setTimeout(()=> {
+      document.querySelector('.title').classList.add('glow');
+    }, 700);
+
+    // ---------- accessibility: if autoplay blocked, show hint ----------
+    document.addEventListener('DOMContentLoaded', ()=>{
+      setTimeout(()=>{
+        if(bg.paused){
+          btnPlay.style.display = 'inline-block';
+        } else {
+          btnPlay.style.display = 'inline-block';
+        }
+      }, 400);
+    });
+
+    // ---------- enable downloading the photo directly (already set as link) ----------
+    // handled by anchor download attribute
+
+  </script>
+</body>
+</html>
